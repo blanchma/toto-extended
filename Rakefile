@@ -10,6 +10,9 @@ begin
     gem.email = "self@cloudhead.net"
     gem.homepage = "http://github.com/cloudhead/toto"
     gem.authors = ["cloudhead"]
+    # gem.files = [Dir.glob('lib/**/*.rb')]
+    # gem.files.include Dir.glob('test/**/*.rb')
+    # gem.files.include ['toto.gemspec', 'VERSION', '']
     gem.add_development_dependency "riot"
     gem.add_dependency "builder"
     gem.add_dependency "rack"
