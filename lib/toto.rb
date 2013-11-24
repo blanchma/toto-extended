@@ -226,7 +226,7 @@ module Toto
 
     def set key, val = nil, &blk
       if val.is_a? Hash
-        self[key].update val
+        self[key] ? self[key].update(val) : self[key]=val
       else
         self[key] = block_given?? blk : val
       end
@@ -249,6 +249,13 @@ module Toto
       return [400, {}, []] unless @request.get?
 
       path, mime = @request.path_info.split('.')
+      if defined?(I18n) && @config[:locale]
+        if locale = @config[:locale][@request.host]
+          puts "Set locale for: #{@request.host} to #{locale}"
+            I18n.locale = locale
+            I18n.default_locale = locale
+        end
+      end
       route = (path || '/').split('/').reject {|i| i.empty? }
 
       response = @site.go(route, env, *(mime ? mime : []))
